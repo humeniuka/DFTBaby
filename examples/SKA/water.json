@@ -1,0 +1,52 @@
+{
+ "electroSka":       {
+
+     "comment"         : "MS, CMS and PAD calculation at AM1 optimized geometry of water",
+
+     "lmax"            :  8,
+     "potential_type"  :  "molecular",
+
+     "molecule"        : {
+         "units" :  "Angstrom",
+         "geometry" : [
+             {"atom": "H", "xyz" : [  0.755131,   -0.475985,    0.000000] },
+             {"atom": "O", "xyz" : [  0.000000,    0.118996,    0.000000] },
+             {"atom": "H", "xyz" : [ -0.755131,   -0.475985,    0.000000] }
+         ],
+         "charge"   : 0
+     },
+
+     "becke_grid"      : {
+         "radial_grid_factor"   : 10,
+         "lebedev_order"        : 23
+     },
+
+     "bound"           : {
+         "units"            : "Hartree",
+         "search_energies"  : "linspace(-5.0, -0.01, 500)"
+     },
+
+     "continuum"       : {
+         "units"            : "eV",
+         "kinetic_energies" : "linspace(0.1,30.0, 200)",
+         "resonances"       : true,
+         "sigma_thresh"     : 10.0
+     },
+
+     "pad"             : {
+         "initial"         : [1,2,3,4],
+         "pol"             : 0,
+         "units"           : "eV-Mb",
+         "pad_file"        : "/tmp/water.pad"
+     },
+
+     "cubes"           : {
+         "export_bound"      : true,
+         "export_resonances" : true,
+         "prefix"            : "/tmp/water",
+         "ppb"               : 3.0,
+         "dbuff"             : 5.0
+     }
+ }
+}
+

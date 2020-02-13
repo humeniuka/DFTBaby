@@ -1,0 +1,7 @@
+%Nproc=3
+%Chk=opt.chk
+#P OPT=tight LC-PBEPBE/6-311+G*
+
+optimize
+
+0,1

@@ -1,0 +1,10 @@
+ 
+                                                      E(products) - E(educts) [kcal/mol]  
+ 
+         Reaction                                        Ref.                  DFTB
+ 
+      1 ethane  + 1 h2  <---> 2 methane                    -21.1                  -6.2
+      1 ethene  + 2 h2  <---> 2 methane                    -70.7                 -43.8
+      1 ethine  + 3 h2  <---> 2 methane                   -130.8                 -74.1
+     1 benzene  + 9 h2  <---> 6 methane                   -204.5                -120.1
+ 

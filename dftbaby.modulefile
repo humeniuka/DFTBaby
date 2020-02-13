@@ -1,0 +1,51 @@
+#%Module1.0
+## 
+##############################################################
+# This template can be used for setting up a module file the
+# configures the environment needed to  using DFTBaby.
+# You need to change at least the variable 'root' so that it
+# points to the top folder DFTBaby-#.#.#
+############################################################## 
+
+# libxc-library is needed for pseudoatom calculations
+append-path LD_LIBRARY_PATH /local_scratch/humeniuka/software/qc/libxc/lib
+append-path LIBRARY_PATH /local_scratch/humeniuka/software/qc/libxc/lib
+append-path CPLUS_INCLUDE_PATH /local_scratch/humeniuka/software/qc/libxc/include
+
+setenv PYTHONUNBUFFERED 1
+# increase stack size
+setenv OMP_STACKSIZE 1g
+#system "ulimit -s unlimited"
+
+# These environment variables control the number of processors for parallel runs.
+# If they are not set, all available processors will be used, even if this slows
+# down the calculation.
+setenv OMP_NUM_THREADS 4
+setenv MKL_NUM_THREADS 4
+
+# This path has to be set to the DFTBaby top directory
+set root $::env(HOME)/DFTB-0.1.0
+
+append-path PYTHONPATH ${root}
+# 
+append-path PATH ${root}/DFTB/
+append-path PATH ${root}/DFTB/Analyse
+append-path PATH ${root}/DFTB/Analyse/mayavi
+append-path PATH ${root}/DFTB/Modeling
+append-path PATH ${root}/DFTB/Dynamics
+append-path PATH ${root}/DFTB/Dynamics/Analyse
+append-path PATH ${root}/DFTB/Dynamics/Analyse/Viewer
+append-path PATH ${root}/DFTB/Dynamics/Analyse/vmd
+append-path PATH ${root}/DFTB/Formats
+append-path PATH ${root}/DFTB/Scattering
+append-path PATH ${root}/DFTB/ForceField
+append-path PATH ${root}/DFTB/Poisson
+append-path PATH ${root}/DFTB/MolecularIntegrals
+append-path PATH ${root}/DFTB/MultipleScattering
+append-path PATH ${root}/DFTB/MetaDynamics
+append-path PATH ${root}/DFTB/Optimize
+# only needed for fitting repulsive potentials
+append-path PATH ${root}/DFTB/RepulsivePotential
+
+module-whatis "sets up access to the development version of the DFTBaby program, so you can use it without installing it"
+

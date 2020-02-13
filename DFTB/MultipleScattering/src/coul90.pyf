@@ -1,0 +1,62 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module coul90 ! in 
+    interface  ! in :coul90
+        subroutine coul90_scalar(x,eta,lmax,kfn,fc,gc,fcp,gcp) ! in :coul90:coul90_wrapper.f90
+            double precision intent(in) :: x
+            double precision intent(in) :: eta
+            integer intent(in) :: lmax
+            integer intent(in) :: kfn
+            double precision dimension(lmax + 1),intent(out),depend(lmax) :: fc
+            double precision dimension(lmax + 1),intent(out),depend(lmax) :: gc
+            double precision dimension(lmax + 1),intent(out),depend(lmax) :: fcp
+            double precision dimension(lmax + 1),intent(out),depend(lmax) :: gcp
+        end subroutine coul90_scalar
+        subroutine coul90_array(x,n,eta,lmax,kfn,fc,gc,fcp,gcp) ! in :coul90:coul90_wrapper.f90
+            double precision dimension(n),intent(in) :: x
+            integer, optional,intent(in),check(len(x)>=n),depend(x) :: n=len(x)
+            double precision intent(in) :: eta
+            integer intent(in) :: lmax
+            integer intent(in) :: kfn
+            double precision dimension(lmax + 1,n),intent(out),depend(lmax,n) :: fc
+            double precision dimension(lmax + 1,n),intent(out),depend(lmax,n) :: gc
+            double precision dimension(lmax + 1,n),intent(out),depend(lmax,n) :: fcp
+            double precision dimension(lmax + 1,n),intent(out),depend(lmax,n) :: gcp
+        end subroutine coul90_array
+        subroutine coul90(x,eta,xlmin,lrange,fc,gc,fcp,gcp,kfn,ifail) ! in :coul90:COUL90.FOR
+            double precision :: x
+            double precision :: eta
+            double precision :: xlmin
+            integer :: lrange
+            double precision dimension(*) :: fc
+            double precision dimension(*) :: gc
+            double precision dimension(*) :: fcp
+            double precision dimension(*) :: gcp
+            integer :: kfn
+            integer :: ifail
+            double precision :: paccq
+            integer :: nfp
+            integer :: npq
+            integer :: iexp
+            double precision :: cf1
+            double precision :: p
+            double precision :: q
+            double precision :: f
+            double precision :: gamma
+            common /steed/ paccq,nfp,npq,iexp,minl    !not required in code
+            common /deset/ cf1,p,q,f,gamma,wronsk     !information only
+        end subroutine coul90
+        subroutine jwkb(x,eta,xl,fjwkb,gjwkb,iexp) ! in :coul90:COUL90.FOR
+            double precision :: x
+            double precision :: eta
+            double precision :: xl
+            double precision :: fjwkb
+            double precision :: gjwkb
+            integer :: iexp
+        end subroutine jwkb
+    end interface 
+end python module coul90
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

@@ -1,0 +1,35 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module sphharm ! in 
+    interface  ! in :sphharm
+        subroutine sphharm_arr(th,ph,lmax,ysph,n) ! in :sphharm:sphharm.f90
+            double precision dimension(n),intent(in) :: th
+            double precision dimension(n),intent(in),depend(n) :: ph
+            integer intent(in) :: lmax
+            complex*16 dimension((lmax+1)*(lmax+1),n),intent(out),depend(lmax,n) :: ysph
+            integer, optional,intent(in),check(len(th)>=n),depend(th) :: n=len(th)
+        end subroutine sphharm_arr
+        subroutine sphharm(th,ph,lmax,ysph) ! in :sphharm:sphharm.f90
+            double precision intent(in) :: th
+            double precision intent(in) :: ph
+            integer intent(in) :: lmax
+            complex*16 dimension((lmax+1)*(lmax+1)),intent(out),depend(lmax) :: ysph
+        end subroutine sphharm
+        subroutine sphharm_const_m(th,ph,mconst,lmax,y) ! in :sphharm:sphharm.f90
+            double precision intent(in) :: th
+            double precision intent(in) :: ph
+            integer intent(in) :: mconst
+            integer intent(in) :: lmax
+            complex*16 dimension(lmax + 2),intent(out),depend(lmax) :: y
+        end subroutine sphharm_const_m
+        subroutine enumerate_lm(lmax,l_arr,m_arr) ! in :sphharm:sphharm.f90
+            integer intent(in) :: lmax
+            integer dimension((lmax+1)*(lmax+1)),intent(out),depend(lmax) :: l_arr
+            integer dimension((lmax+1)*(lmax+1)),intent(out),depend(lmax) :: m_arr
+        end subroutine enumerate_lm
+    end interface 
+end python module sphharm
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

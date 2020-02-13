@@ -1,0 +1,124 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module ms ! in 
+    interface  ! in :ms
+        subroutine jn_coeffs(l1,m1,l2,m2,vec,jcoeff,ncoeff) ! in :ms:ms.f90
+            integer intent(in) :: l1
+            integer intent(in) :: m1
+            integer intent(in) :: l2
+            integer intent(in) :: m2
+            double precision dimension(3),intent(in) :: vec
+            complex*16 intent(out) :: jcoeff
+            complex*16 intent(out) :: ncoeff
+        end subroutine jn_coeffs
+        subroutine ik_coeffs(l1,m1,l2,m2,vec,icoeff,kcoeff) ! in :ms:ms.f90
+            integer intent(in) :: l1
+            integer intent(in) :: m1
+            integer intent(in) :: l2
+            integer intent(in) :: m2
+            double precision dimension(3),intent(in) :: vec
+            complex*16 intent(out) :: icoeff
+            complex*16 intent(out) :: kcoeff
+        end subroutine ik_coeffs
+        subroutine jn_or_ik_coeffs(l1,m1,l2,m2,vec,energy,vconst,ji_coeff,nk_coeff) ! in :ms:ms.f90
+            integer intent(in) :: l1
+            integer intent(in) :: m1
+            integer intent(in) :: l2
+            integer intent(in) :: m2
+            double precision dimension(3),intent(in) :: vec
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            complex*16 intent(out) :: ji_coeff
+            complex*16 intent(out) :: nk_coeff
+        end subroutine jn_or_ik_coeffs
+        subroutine matching_matrix(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspli,nspliii,kspl,fiknots,ficoeffs,fiiiknots,fiiicoeffs,debug,matchm) ! in :ms:ms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspli),depend(fiknots) :: nspli=shape(fiknots,0)
+            integer, optional,intent(in),check(shape(fiiiknots,0)==nspliii),depend(fiiiknots) :: nspliii=shape(fiiiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nspli,lmax,nat) :: ficoeffs
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(lmax) :: fiiiknots
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(nspliii,lmax) :: fiiicoeffs
+            integer, optional,intent(in) :: debug=0
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),(lmax+1)*(lmax+1)*(nat+1)),intent(out),depend(nat,lmax,nat,lmax) :: matchm
+        end subroutine matching_matrix
+        subroutine normalization(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspli,nspliii,kspl,fiknots,ficoeffs,fiiiknots,fiiicoeffs,nr,debug,nrm) ! in :ms:ms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspli),depend(fiknots) :: nspli=shape(fiknots,0)
+            integer, optional,intent(in),check(shape(fiiiknots,0)==nspliii),depend(fiiiknots) :: nspliii=shape(fiiiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nspli,lmax,nat) :: ficoeffs
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(lmax) :: fiiiknots
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(nspliii,lmax) :: fiiicoeffs
+            integer intent(in) :: nr
+            integer, optional,intent(in) :: debug=0
+            double precision dimension((lmax+1)*(lmax+1)*(nat+1)),intent(out),depend(nat,lmax) :: nrm
+        end subroutine normalization
+        subroutine wavefunctions(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspli,nspliii,kspl,fiknots,ficoeffs,fiiiknots,fiiicoeffs,nc,sol,npts,x_arr,y_arr,z_arr,debug,wfn_arr) ! in :ms:ms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspli),depend(fiknots) :: nspli=shape(fiknots,0)
+            integer, optional,intent(in),check(shape(fiiiknots,0)==nspliii),depend(fiiiknots) :: nspliii=shape(fiiiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nspli,lmax,nat) :: ficoeffs
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(lmax) :: fiiiknots
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(nspliii,lmax) :: fiiicoeffs
+            integer, optional,intent(in),check(shape(sol,1)==nc),depend(sol) :: nc=shape(sol,1)
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),nc),intent(in),depend(nat,lmax) :: sol
+            integer, optional,intent(in),check(len(x_arr)>=npts),depend(x_arr) :: npts=len(x_arr)
+            double precision dimension(npts),intent(in) :: x_arr
+            double precision dimension(npts),intent(in),depend(npts) :: y_arr
+            double precision dimension(npts),intent(in),depend(npts) :: z_arr
+            integer, optional,intent(in) :: debug=0
+            complex*16 dimension(nc,npts),intent(out),depend(nc,npts) :: wfn_arr
+        end subroutine wavefunctions
+        subroutine convert_coefficients_atoc(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspli,nspliii,kspl,fiknots,ficoeffs,fiiiknots,fiiicoeffs,nc,sola,debug,solc) ! in :ms:ms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspli),depend(fiknots) :: nspli=shape(fiknots,0)
+            integer, optional,intent(in),check(shape(fiiiknots,0)==nspliii),depend(fiiiknots) :: nspliii=shape(fiiiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspli,lmax + 1,nat),intent(in),depend(nspli,lmax,nat) :: ficoeffs
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(lmax) :: fiiiknots
+            double precision dimension(nspliii,lmax + 1),intent(in),depend(nspliii,lmax) :: fiiicoeffs
+            integer, optional,intent(in),check(shape(sola,1)==nc),depend(sola) :: nc=shape(sola,1)
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),nc),intent(in),depend(nat,lmax) :: sola
+            integer, optional,intent(in) :: debug=0
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),nc),intent(out),depend(nat,lmax,nc) :: solc
+        end subroutine convert_coefficients_atoc
+    end interface 
+end python module ms
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

@@ -1,0 +1,26 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module numerov ! in 
+    interface  ! in :numerov
+        subroutine numerov_out(r,v,n,e,lmax,u) ! in :numerov:numerov.f90
+            double precision dimension(n),intent(in) :: r
+            double precision dimension(n),intent(in),depend(n) :: v
+            integer, optional,intent(in),check(len(r)>=n),depend(r) :: n=len(r)
+            double precision intent(in) :: e
+            integer intent(in) :: lmax
+            double precision dimension(n,lmax + 1),intent(out),depend(n,lmax) :: u
+        end subroutine numerov_out
+        subroutine numerov_in(r,v,n,e,lmax,u) ! in :numerov:numerov.f90
+            double precision dimension(n),intent(in) :: r
+            double precision dimension(n),intent(in),depend(n) :: v
+            integer, optional,intent(in),check(len(r)>=n),depend(r) :: n=len(r)
+            double precision intent(in) :: e
+            integer intent(in) :: lmax
+            double precision dimension(n,lmax + 1),intent(out),depend(n,lmax) :: u
+        end subroutine numerov_in
+    end interface 
+end python module numerov
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

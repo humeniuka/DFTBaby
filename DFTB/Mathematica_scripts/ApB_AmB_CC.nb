@@ -1,0 +1,235 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      7057,        225]
+NotebookOptionsPosition[      6779,        211]
+NotebookOutlinePosition[      7116,        226]
+CellTagsIndexPosition[      7073,        223]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"i", ",", "j"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "i"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "b"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "a"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "i"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "a"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "b"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", "\[Element]", "occ"}]], " ", 
+      SubscriptBox["ApB", 
+       RowBox[{"a", ",", "b", ",", "p", ",", "q"}]]}]}], ")"}]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "b"}]], " ", 
+   SubscriptBox["ApB", 
+    RowBox[{"i", ",", "a", ",", "j", ",", "q"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "j"}]], " ", 
+   SubscriptBox["ApB", 
+    RowBox[{"i", ",", "a", ",", "q", ",", "b"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"a", ",", "b"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", 
+       SubscriptBox["\[Epsilon]", "a"]}], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "j"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "i"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "a"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "-", " ", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "p"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "q"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", "\[Element]", "occ"}]], " ", 
+      SubscriptBox["ApB", 
+       RowBox[{"i", ",", "j", ",", "p", ",", "q"}]]}]}], ")"}]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "a"}]], " ", 
+   SubscriptBox["ApB", 
+    RowBox[{"i", ",", "q", ",", "j", ",", "b"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "i"}]], " ", 
+   SubscriptBox["ApB", 
+    RowBox[{"q", ",", "a", ",", "j", ",", "b"}]]}]}]], "Input",
+ CellChangeTimes->{{3.64542392696192*^9, 3.6454239301851587`*^9}, {
+   3.6454239767303867`*^9, 3.645423983036501*^9}, {3.645424025969644*^9, 
+   3.645424035348302*^9}, 3.645424079491138*^9, {3.645424303906929*^9, 
+   3.645424326115932*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "b"}]], " ", 
+   SubscriptBox["AmB", 
+    RowBox[{"i", ",", "a", ",", "j", ",", "q"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "j"}]], " ", 
+   SubscriptBox["AmB", 
+    RowBox[{"i", ",", "a", ",", "q", ",", "b"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "a"}]], " ", 
+   SubscriptBox["AmB", 
+    RowBox[{"i", ",", "q", ",", "j", ",", "b"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"p", ",", "i"}]], " ", 
+   SubscriptBox["AmB", 
+    RowBox[{"q", ",", "a", ",", "j", ",", "b"}]]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"i", ",", "j"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "i"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "b"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "a"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "i"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "a"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "b"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "q"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "a"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "b"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", "\[Element]", "virt"}]], " ", 
+      SubscriptBox["\[Epsilon]", "q"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "a"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "b"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", "\[Element]", "occ"}]], " ", 
+      SubscriptBox["ApB", 
+       RowBox[{"a", ",", "b", ",", "p", ",", "q"}]]}]}], ")"}]}], "+", 
+  RowBox[{
+   SubscriptBox["\[Delta]", 
+    RowBox[{"a", ",", "b"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", 
+       SubscriptBox["\[Epsilon]", "a"]}], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "j"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "i"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "i"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "j"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "i"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "q"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "j"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "i"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "a"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "p"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "+", 
+     RowBox[{
+      SubscriptBox["\[Epsilon]", "q"], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", ",", "i"}]], " ", 
+      SubscriptBox["\[Delta]", 
+       RowBox[{"q", ",", "j"}]]}], "-", 
+     RowBox[{
+      SubscriptBox["\[Delta]", 
+       RowBox[{"p", "\[Element]", "occ"}]], " ", 
+      SubscriptBox["ApB", 
+       RowBox[{"i", ",", "j", ",", "p", ",", "q"}]]}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.645424148558638*^9, 3.645424201754066*^9}}]
+},
+WindowSize->{740, 851},
+WindowMargins->{{Automatic, 189}, {1, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 2750, 82, 107, "Input"],
+Cell[3310, 104, 3465, 105, 106, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

@@ -1,0 +1,59 @@
+{
+ "electroSka":       {
+
+     "comment"         : "This job computes the PADs for photoionization from Dyson orbitals of furan to the CMS continuum, the calculation of MS bound orbitals is skipped.",
+
+     "lmax"            :  8,
+     "potential_type"  :  "molecular",
+
+     "molecule"        : {
+         "units" :  "Angstrom",
+         "geometry" : [
+	     {"atom": "O","xyz": [  0.00000000,  0.00000000, -1.18271981] },
+             {"atom": "C","xyz": [  0.00000000, -1.11891450, -0.34818612] },
+             {"atom": "C","xyz": [  0.00000000, -0.72352085,  0.97359145] },
+             {"atom": "C","xyz": [ -0.00000000,  0.72352085,  0.97359145] },
+             {"atom": "C","xyz": [ -0.00000000,  1.11891450, -0.34818612] },
+             {"atom": "H","xyz": [  0.00000000, -2.06961957, -0.87176122] },
+             {"atom": "H","xyz": [  0.00000000, -1.35623079,  1.85592748] },
+             {"atom": "H","xyz": [ -0.00000000,  1.35623079,  1.85592748] },
+             {"atom": "H","xyz": [ -0.00000000,  2.06961957, -0.87176122] }
+         ],
+         "charge"   : 0
+     },
+
+     "becke_grid"      : {
+         "radial_grid_factor"   : 10,
+         "lebedev_order"        : 23
+     },
+
+     "dyson"           : {
+	 "project"          : false,
+	 "molden_file"      : "furan_dyson.molden"
+     },
+     
+     "continuum"       : {
+         "units"            : "eV",
+         "kinetic_energies" : "linspace(0.1,30.0, 200)",
+         "resonances"       : false,
+         "sigma_thresh"     : 10.0
+     },
+
+     "pad"             : {
+	 "orbitals"        : "dyson",
+         "initial"         : [1,2,3,4],
+         "pol"             : 0,
+         "units"           : "eV-Mb",
+         "pad_file"        : "furan.pad"
+     },
+
+     "cubes"           : {
+	 "export_projected"  : true,
+         "export_resonances" : true,
+         "prefix"            : "/tmp/furan",
+         "ppb"               : 3.0,
+         "dbuff"             : 5.0
+     }
+ }
+}
+

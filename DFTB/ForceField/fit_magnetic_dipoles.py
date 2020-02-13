@@ -1,0 +1,379 @@
+#!/usr/bin/env python
+"""
+fit magnetic dipoles at atomic centers to reproduce a vector potential A(r), 
+the components of which are provided in 3 cube files.
+
+The magnetic (transition) dipole densities can be extracted from formatted checkpoint
+files using the 'Multiwfn' program. The IOp(9/40=5) should be added to the route section
+so that all excitation and deexcitation coefficients larger than 10^(-5) are written
+to the log-file. 
+"""
+import numpy as np
+from numpy import linalg as la 
+from DFTB import AtomicData, XYZ
+from DFTB.Analyse import Cube
+
+def local_axes(R):
+    """
+    compute a local coordinate system by diagonalizing the tensor of inertia with
+    all masses set to 1
+
+    Parameters
+    ----------
+    R: position of atomic centers, R[:,i] is the center of atom i
+
+    Returns
+    -------
+    axes: 3x3 matrix, axes[:,j] is the j-th axis
+    """
+    dummy,n = R.shape
+    # center of mass (with all masses set to 1)
+    cm = np.zeros(3)
+    for i in range(0, n):
+        cm += R[:,i]
+    cm /= float(n)
+    # tensor of inertia
+    I = np.zeros((3,3))
+    for i in range(0, n):
+        # shift molecule to center of mass
+        x,y,z = R[:,i] - cm
+        
+        I[0,0] += y*y+z*z    # Ixx
+        I[1,1] += x*x+z*z    # Iyy
+        I[2,2] += x*x+y*y    # Izz
+        I[0,1] -= x*y        # Ixy
+        I[1,2] -= y*z        # Iyz
+        I[0,2] -= x*z        # Ixz
+
+    print "  center of mass (all masses = 1): %+7.5f %+7.5f %+7.5f" % tuple(cm)
+    print "  Tensor of inertia (all masses = 1)"
+    print "    %+7.5f " % I[0,0];
+    print "    %+7.5f %+7.5f " % (I[0,1], I[1,1]);
+    print "    %+7.5f %+7.5f %+7.5f " % (I[0,2], I[1,2], I[2,2]);
+
+    moments, axes = la.eigh(I,UPLO='U')
+
+    # phases of eigen vectors are not unique, fix them by some convention
+    # find projection of atom positions on axes
+    proj = np.array([0.0,0.0,0.0])
+    for xyz in [0,1,2]:
+        for i in range(0, n):
+            proj[xyz] += (i+1) * np.dot(axes[:,xyz], R[:,i]-cm)
+    print "proj = %s" % proj
+    if proj[2] < 0.0:
+        axes[:,2] *= -1
+        print "FLIP Z"
+    if proj[1] < 0.0:
+        axes[:,1] *= -1
+        print "FLIP Y"
+    if np.dot(axes[:,2], np.cross(axes[:,0], axes[:,1])) < 0.0:
+        # create right handed coordinate system
+        axes[:,0] *= -1
+        print "FLIP X"
+
+    assert(np.dot(axes[:,2], np.cross(axes[:,0], axes[:,1])) > 0.0)
+
+    print "local molecular frame:"
+    print " x-axis: %s" % axes[:,0]
+    print " y-axis: %s" % axes[:,1]
+    print " z-axis: %s" % axes[:,2]
+
+    return axes
+        
+class MagneticDipoleFitter:  # magnetic dipoles from vector potential
+    def __init__(self):
+        pass
+    def setFitPoints(self, r, Ax, Ay, Az):
+        """
+        Parameters
+        ----------
+        r: numpy array with shape (3,Npts), fit points
+        Ax, Ay, Az: numpy arrays with shape (Npts), 
+           (Ax[i],Ay[i],Az[i]) is the vector potential at the fit point (x,y,z) = r[:,i]
+        """
+        self.r = r
+        self.Avec = [Ax, Ay, Az]
+        self.m = len(Ax)  # number of fit points
+    def setAtomicCenters(self, atomlist):
+        """
+        set centers where the monopoles are located
+
+        Parameters
+        ----------
+        atomlist: list of tuples (Z,[x,y,z]) with atomic number Z and center [x,y,z] (in bohr)
+        """
+        self.n = len(atomlist)  # number of centers
+        self.atomlist = atomlist
+        # R[:,a] is the 3d position of the a-th center
+        self.R = np.zeros((3,self.n))
+        # vdw radius for each center
+        self.vdw_radii = np.zeros(self.n)
+        for a,(Za,posa) in enumerate(self.atomlist):
+            self.R[:,a] = np.array(posa)
+            self.vdw_radii[a] = AtomicData.vdw_radii[ AtomicData.atom_names[Za-1] ]
+        # determine local molecular frame
+        self.axes = local_axes(self.R)
+    def fitVectorPotential(self, mtot, verbose=1):
+        """
+        fit magnetic dipoles to magnetic vector potential A(r)
+
+        Parameters
+        ----------
+        mtot: numpy array of shape (3), total magnetic dipole vector
+          the sum of the atomic dipoles is constrained to this value
+
+        Returns
+        -------
+        mvec: numpy array with shape (3,n), optimized point magnetic dipole moments
+              for each atom, mvec[:,i] is the dipole situated on atom i
+              The dipole moments are projected onto the principle axes of rotation
+              of the molecule.
+
+        Minimize the deviation
+
+           d = 1/2 || A(r) - A^dipole(r) ||^2
+
+        subject to the constraint that the total dipole moment is equal to M
+
+            sum_a m(a) = M
+        
+        The constraint is introduced by the Lagrange multipliers lambda = [lamda_x, lambda_y, lamda_z]:
+           L = 1/2 || A(r) - A^dipole(r) ||^2  + lambda * ( sum_a m(a) - M )
+ 
+        The vector potential generated by a distribution of a=1,...,n magnetic dipole vectors m(a)
+        located at positions R(a) is given by
+                            __n
+                            \           (-1)
+            A^dipole(r) =   /      -------------- [r - R(a)] x m(a)
+                            --a=1  c |r - R(a)|^3
+
+        The cross product can be written in matrix form
+
+                            __n
+                            \           (-1)      (     0     -(z-Z(a))   (y-Y(a)) )   ( m_x(a) )
+                        =   /      -------------- (  (z-Z(a))     0      -(x-X(a)) ) * ( m_y(a) )
+                            --a=1  c |r - R(a)|^3 ( -(y-Y(a))  (x-X(a))      0     )   ( m_z(a) )
+
+                                  \______________________  ________________________/
+                                                         \/
+                           __n                   R^(3x3) matrix K(r,a)
+                           \
+                        =  /     K(r,R(a)) * m(a)
+                           --a=1
+
+        
+        The atomic magnetic moments m(a) and the 3 Lagrange multipliers are found by solving 
+        the following system of linear equations
+
+              d L
+             ------ = 0
+             d m(b)
+
+        which is equivalent to
+
+              __n     __                                                   __
+              \       \      T                                             \      T
+              /     [ /     K (r(i),R(b)) K(r(i),R(a)) ]  m(a) + lambda =  /     K (r(i),R(b)) A(i)                ( 3*n equation )
+              --a=1   --i=1                                                --i=1
+
+              __n
+              \
+              /     m(a)                                                = M                                        ( 3 equations )
+              --a=1
+
+        To obtain the components m_x(a), m_y(a) and m_z(a) a system of linear equatios of dimension
+        (3n+3) x (3n+3) has to be solved
+        """
+        # _d[i,j] is the distance between the i-th fit point and the j-th center, |r_i - R_j|
+        print "compute distances..."
+        _d = np.zeros((self.m, self.n))
+        for xyz in range(0, 3):
+            for j in range(0, self.n):
+                _d[:,j] += (self.r[xyz,:] - self.R[xyz,j])**2
+        _d = np.sqrt(_d)
+
+        print "eliminate those fit points that are either"
+        print "  - closer than the van der Waals radius to any atom"
+        print "  - or farther away than Rmax=2.8 Angstrom from all atoms"
+        Rmax = 2.8 / AtomicData.bohr_to_angs
+        print "vdW radii: %s" % self.vdw_radii
+        print "Rmax= %s bohr" % Rmax
+        # indeces of selected fit points outside vdW radius
+        # and inside volume with max distance Rmax from each atom
+        indeces = []
+        for i in range(0, self.m): 
+            if (_d[i,:] >= self.vdw_radii).all() and (_d[i,:] < Rmax).any():
+                indeces.append(i)
+        m = len(indeces)                
+        print "%d of %d fit points left" % (m, self.m)
+        # distances of selected fit points 
+        d = _d[indeces,:]
+        # vector potential at the selected fit points
+        Avec = [self.Avec[0][indeces], self.Avec[1][indeces], self.Avec[2][indeces]]
+        Avec = np.array(Avec).transpose()  # Avec[:,0] is the x-component of the vector potential at all fit points
+        # positions of elected fit points
+        r = self.r[:,indeces]
+        #
+        print "build K-matrices..."
+        # 
+        K = np.zeros((m, 3,3, self.n))  #   K[i,:,:,j] = K(i,j)
+        for j in range(0, self.n):  # iterate over atom centers
+            # diagonal elements are zero
+            K[:,0,0,j] = 0.0
+            K[:,1,1,j] = 0.0
+            K[:,2,2,j] = 0.0
+            #
+            c = AtomicData.speed_of_light
+            f = -1.0/(c * d[:,j]**3)
+            # non-zero elements
+            K[:,0,1,j] = -f*(r[2,:] - self.R[2,j])        #    -(z(i)-Z(a))
+            K[:,0,2,j] =  f*(r[1,:] - self.R[1,j])        #     (y(i)-Y(a))
+            K[:,1,2,j] = -f*(r[0,:] - self.R[0,j])        #    -(x(i)-X(a))
+            # K is antisymmetric
+            K[:,1,0,j] = -K[:,0,1,j]
+            K[:,2,0,j] = -K[:,0,2,j]
+            K[:,2,1,j] = -K[:,1,2,j]
+
+        print "build linear equation system..."
+        # A matrix for x,y,z components
+        A = np.zeros((3*(self.n+1),3*(self.n+1)))
+        # right hand side of A.x = b
+        b = np.zeros(3*(self.n+1))
+        #
+        for i in range(0, self.n):
+            for j in range(0, self.n):
+                # sum_i K^T(:,i) * K(:,j)
+                A[3*i:3*(i+1),3*j:3*(j+1)] = np.tensordot(K[:,:,:,i], K[:,:,:,j], axes=([0,1],[0,1]))
+            b[3*i:3*(i+1)] = np.tensordot(K[:,:,:,i], Avec[:,:], axes=([0,1],[0,1]))
+        # additional rows and columns because of Lagrange multiplier that constrain
+        # the sum of the magnetic dipole moments to be equal to Mtot
+        for xyz in [0,1,2]:
+            for i in range(0, self.n):
+                # last 3 columns of A
+                A[3*i+xyz,3*self.n+xyz] = 1.0
+                # last 3 rows of A
+                A[3*self.n+xyz,3*i+xyz] = 1.0
+                
+            b[3*self.n+xyz] = mtot[xyz]
+        A[3*self.n:3*(self.n+1), 3*self.n:3*(self.n+1)] = 0.0
+        
+        print "solve A.x = b..."
+        x = la.solve(A,b)
+        # atom-centered magnetic dipoles
+        mvec = x[:-3].reshape((self.n,3)).transpose()
+        # Lagrange multiplies
+        lamb = x[-3:]
+        
+        # root mean square error
+        rmsd = np.sqrt( np.sum( (Avec - np.tensordot(K, mvec, axes=([2,3],[0,1])))**2 )/float(m) )
+        # total magnetic dipole moment
+        summed_magnetic_dipole = np.sum(mvec, axis=1)
+
+        # project magnetic dipoles on molecular frame coordinate system
+        mvec_proj = np.dot(self.axes.transpose(), mvec)
+        
+        if verbose > 0:
+            print ""
+            print "root mean square deviation ||A - A(dipoles)||: %e" % rmsd
+            print "total magnetic dipole vector: %+7.5f  %+7.5f  %+7.5f" % tuple(mtot.tolist())
+            print "sum of atom-centered vectors: %+7.5f  %+7.5f  %+7.5f" % tuple(summed_magnetic_dipole.tolist())
+            print ""
+            print "Unlike transition charges, the magnetic dipoles depend on the orientation of the molecule."
+            print "To allow copying magnetic dipoles between differently oriented monomers without having"
+            print "to rotate them, the magnetic dipoles are defined in a LOCAL MOLECULAR FRAME. "
+            print "The local axes are obtained as the eigenvectors of the tensor of inertia (with all atomic masses set to 1)."
+
+            print "                                 M  A  G  N  E  T  I  C       D  I  P  O  L  E  S                     "
+            print "                                original orientation                      local molecular frame       "
+            print "  #          Element        Mx           My           Mz              Mx           My           Mz    "
+            print "======================================================================================================"
+            for i,(Zi, posi) in enumerate(self.atomlist):
+                print "  %4.1d     %4.2s           %+7.5f     %+7.5f     %+7.5f        %+7.5f     %+7.5f     %+7.5f" % (i, AtomicData.atom_names[Zi-1].capitalize(),
+                                                                                                        mvec[0,i], mvec[1,i], mvec[2,i],
+                                                                                                        mvec_proj[0,i], mvec_proj[1,i], mvec_proj[2,i])
+
+            print ""
+            
+        return mvec_proj
+
+if __name__ == "__main__":
+    import os.path
+    import sys
+    from optparse import OptionParser
+    
+    usage = "Usage: python %s  Mx.cube My.cube Mz.cube  Ax.cube Ay.cube Az.cube  <.dat output>\n" % os.path.basename(sys.argv[0])
+    usage += "  fit atom-centered magnetic dipoles to magnetic vector potential A(r).\n\n"
+    usage += "  The cube files Ax, Ay and Az should contain the x-,y- and z-components of A(r).\n"
+    usage += "  The cube files Mx, My and Mz should contain the components of the magnetic\n"
+    usage += "  dipole density from which A(r) was calculated.\n"
+    usage += "  The components of the atom-centered magnetic dipoles mx,my,mz are written\n"
+    usage += "  to 3 columns in the output .dat file.\n\n"
+    usage += " NOTE: To allow copying magnetic dipoles between differently oriented monomers without having\n"
+    usage += "  to rotate them, the magnetic dipoles are defined in a LOCAL MOLECULAR FRAME.\n"
+    usage += "  The local axes are obtained as the eigenvectors of the tensor of inertia (with all atomic masses set to 1).\n"
+    usage += "  --help shows all options\n"
+    
+    parser = OptionParser(usage)
+    parser.add_option("--fit_centers", dest="fit_centers", type=str, default="", help="Path to an xyz-file with atomic positions that should be used as fit centers instead of the atomic centers in the cube-files. [default: %default]")
+    
+    (opts, args) = parser.parse_args()
+    if len(args) < 7:
+        print usage
+        exit(-1)
+
+        
+    # input cube files
+    # ... for magnetic dipole density
+    Mx_cube_file = args[0]
+    My_cube_file = args[1]
+    Mz_cube_file = args[2]
+    # ... vector potential
+    Ax_cube_file = args[3]
+    Ay_cube_file = args[4]
+    Az_cube_file = args[5]
+    # output file
+    dat_file = args[6]
+
+    # load cube files components of magnetic dipole density
+    print "load magnetic dipole densities from cube files..."
+    atomlist, origin, axes, Mx = Cube.readCube(Mx_cube_file)
+    atomlist, origin, axes, My = Cube.readCube(My_cube_file)
+    atomlist, origin, axes, Mz = Cube.readCube(Mz_cube_file)
+
+    dx = la.norm(axes[0])
+    dy = la.norm(axes[1])
+    dz = la.norm(axes[2])
+    # volume element, assuming the axes are orthogonal
+    dV = dx*dy*dz
+    # find total magnetic dipole moment
+    mtot = np.array([ np.sum(Mx*dV), np.sum(My*dV), np.sum(Mz*dV) ])
+    
+    # load cube files for components of vector potential
+    print "load magnetic vector potential from cube files..."
+    atomlist, origin, axes, Ax_data = Cube.readCube(Ax_cube_file)
+    atomlist, origin, axes, Ay_data = Cube.readCube(Ay_cube_file)
+    atomlist, origin, axes, Az_data = Cube.readCube(Az_cube_file)
+    # extract positions of points and values of A
+    points, Ax = Cube.get_points_and_values(origin, axes, Ax_data)
+    points, Ay = Cube.get_points_and_values(origin, axes, Ay_data)
+    points, Az = Cube.get_points_and_values(origin, axes, Az_data)
+
+    # fit magnetic dipoles
+    fitter = MagneticDipoleFitter()
+    fitter.setFitPoints(points, Ax,Ay,Az)
+    # fitting centers
+    if opts.fit_centers != "":
+        print "loading fit centers from '%s'" % opts.fit_centers
+        atomlist = XYZ.read_xyz(opts.fit_centers)[0]
+    fitter.setAtomicCenters(atomlist)
+    
+    magnetic_dipoles = fitter.fitVectorPotential(mtot)
+
+    # save magnetic dipoles
+    fh = open(dat_file, "w")
+    print>>fh, "# atom-centered magnetic dipoles fitted to the vector potential A(r)"
+    print>>fh, "# The dipoles were projected onto principle axes of rotation (with all masses = 1) "
+    print>>fh, "#   Mx        My        Mz"
+    np.savetxt(fh, magnetic_dipoles)
+    fh.close()
+    print "magnetic dipoles saved to '%s'" % dat_file

@@ -1,0 +1,21 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module Wigner3j ! in 
+    interface  ! in :Wigner3j
+        subroutine wigner3j(w3j,jmin,jmax,j2,j3,m1,m2,m3,exitstatus) ! in :Wigner3j:Wigner3j.f95
+            real*8 dimension(j2+j3+1),intent(out),depend(j2,j3) :: w3j
+            integer intent(out) :: jmin
+            integer intent(out) :: jmax
+            integer intent(in) :: j2
+            integer intent(in) :: j3
+            integer intent(in) :: m1
+            integer intent(in) :: m2
+            integer intent(in) :: m3
+            integer, optional,intent(out) :: exitstatus
+        end subroutine wigner3j
+    end interface 
+end python module Wigner3j
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

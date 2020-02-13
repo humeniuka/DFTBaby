@@ -1,0 +1,28 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module photo ! in 
+    interface  ! in :photo
+        subroutine pad_iso(energy,pol,tdip,lmax,norb,pad) ! in :photo:photo.f90
+            double precision intent(in) :: energy
+            integer intent(in) :: pol
+            complex*16 dimension(norb,3,(lmax+1)*(lmax+1)),intent(in),depend(lmax) :: tdip
+            integer intent(in) :: lmax
+            integer, optional,intent(in),check(shape(tdip,0)==norb),depend(tdip) :: norb=shape(tdip,0)
+            double precision dimension(norb,3),intent(out),depend(norb) :: pad
+        end subroutine pad_iso
+        subroutine phi_iso(p,l1,m1,mu1,l2,m2,mu2,phi) ! in :photo:photo.f90
+            integer intent(in) :: p
+            integer intent(in) :: l1
+            integer intent(in) :: m1
+            integer intent(in) :: mu1
+            integer intent(in) :: l2
+            integer intent(in) :: m2
+            integer intent(in) :: mu2
+            double precision dimension(3),intent(out) :: phi
+        end subroutine phi_iso
+    end interface 
+end python module photo
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

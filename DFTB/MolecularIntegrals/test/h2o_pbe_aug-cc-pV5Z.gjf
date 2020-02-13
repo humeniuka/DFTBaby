@@ -1,0 +1,18 @@
+%Chk=h2o_pbe_aug-cc-pV5Z.chk
+%Nproc=3
+%Mem=300MW
+#P PBEPBE/aug-cc-pV5Z Integral(Grid=UltraFine,Acc2E=14)
+
+Water - experimental geometry
+r(OH) = 0.958,angle(H-O-H) = 104.4776 degrees
+This geometry is different from the one in 'h2o_hf_sv.gjf'!
+
+0,1
+O 0.000000000000000  0.000000000000000 -0.117763400000000
+H 0.000000000000000  0.757365950000000  0.468888820000000
+H 0.000000000000000 -0.757365950000000  0.468888820000000
+
+
+
+
+

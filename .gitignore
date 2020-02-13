@@ -1,0 +1,20 @@
+/build
+/dist
+/DFTBaby.egg-info
+/doc/build
+# ignore data from repulsive potential fitting
+**/*.forces.xyz
+**/*.energies.xyz
+# ignore parameters from other codes
+/DFTB/dftb-plus_parameters
+/DFTB/hotbit_parameters
+# ignore large files with numerical data
+**/*.npz
+# ignore architecture dependent files
+**/*.so
+**/*.o
+**/*.pyc
+# ignore emacs backup files
+*~
+*~
+\#*\#

@@ -1,0 +1,13 @@
+%Chk=H2_pbe_aug-cc-pV5Z.chk
+%Mem=5Gb
+#P PBEPBE/aug-cc-pV5Z Integral(Grid=UltraFine,Acc2E=14)
+
+hydrogen molecule - experimental geometry
+
+0,1
+H	0.0   0.0	     0.0
+H	0.0   0.0	     0.741
+
+
+
+

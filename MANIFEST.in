@@ -1,0 +1,38 @@
+include dftbaby_env.sh
+include dftbaby.modulefile
+include VERSION
+include LICENSE
+include AUTHORS
+include DFTB/dftbaby.cfg
+include DFTB/extensions/Makefile
+include DFTB/extensions/slako_transformations_*.f90
+include DFTB/extensions/splder.f
+include DFTB/extensions/splines.f90
+include DFTB/extensions/*
+include DFTB/extensions/*.so
+include DFTB/ForceField/src/setup.py
+include DFTB/ForceField/src/*.h
+include DFTB/ForceField/src/Makefile
+include DFTB/ForceField/*.so
+include DFTB/ForceField/examples/*.ff
+
+include DFTB/Poisson/src/Makefile
+include DFTB/Poisson/src/io_pspfft.f90
+include DFTB/Poisson/src/poisson_pspfft.f90
+
+include DFTB/RepulsivePotential/fit_reppot_dimer.sh
+
+include DFTB/SlaterKoster/pylibxc/*.so
+include DFTB/SlaterKoster/pylibxc/Makefile
+include DFTB/SlaterKoster/pylibxc/*.cpp
+include DFTB/SlaterKoster/pylibxc/*.py
+
+include DFTB/MolecularIntegrals/test/*.fchk
+include DFTB/MolecularIntegrals/test/*.gjf
+
+include DFTB/MultipleScattering/src/*
+include DFTB/MultipleScattering/*.so
+
+include DFTB/Analyse/vmd/*.tcl
+
+recursive-include examples *

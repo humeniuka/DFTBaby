@@ -1,0 +1,173 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4640,        165]
+NotebookOptionsPosition[      4251,        147]
+NotebookOutlinePosition[      4590,        162]
+CellTagsIndexPosition[      4547,        159]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"rA", ",", " ", 
+    RowBox[{
+    "rB", " ", "are", " ", "the", " ", "radii", " ", "of", " ", "the", " ", 
+     "atomic", " ", "spheres", " ", "A", " ", "and", " ", "B"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "d", " ", "is", " ", "the", " ", "distance", " ", "between", " ", "the", 
+     " ", "centers", " ", "of", " ", "the", " ", "spheres"}]}], 
+   "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"hA", "=", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"rB", "^", "2"}], "-", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"rA", "-", "d"}], ")"}], "^", "2"}]}], 
+      RowBox[{"2", "*", "d"}]]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"hB", "=", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"rA", "^", "2"}], "-", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"rB", "-", "d"}], ")"}], "^", "2"}]}], 
+      RowBox[{"2", "*", "d"}]]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"volumeCapA", "=", 
+    RowBox[{"\[Pi]", "*", 
+     RowBox[{"hA", "^", "2"}], "*", 
+     RowBox[{"(", 
+      RowBox[{"rA", "-", 
+       RowBox[{
+        FractionBox["1", "3"], "*", "hA"}]}], ")"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"volumeCapB", "=", 
+    RowBox[{"\[Pi]", "*", 
+     RowBox[{"hB", "^", "2"}], "*", 
+     RowBox[{"(", 
+      RowBox[{"rB", "-", 
+       RowBox[{
+        FractionBox["1", "3"], "*", "hB"}]}], ")"}]}]}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"overlapVolume", "=", 
+    RowBox[{"FullSimplify", "[", 
+     RowBox[{"volumeCapA", "+", "volumeCapB"}], "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.7276023687510967`*^9, 3.727602547467211*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"\[Pi]", " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "d"}], "+", "rA"}], ")"}], "2"]}], "+", 
+      SuperscriptBox["rB", "2"]}], ")"}], "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{"rA", "-", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "d"}], "+", "rA"}], ")"}], "2"]}], "+", 
+       SuperscriptBox["rB", "2"]}], 
+      RowBox[{"6", " ", "d"}]]}], ")"}]}], 
+  RowBox[{"4", " ", 
+   SuperscriptBox["d", "2"]}]]], "Output",
+ CellChangeTimes->{3.727602549182122*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"\[Pi]", " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      SuperscriptBox["rA", "2"], "-", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "d"}], "+", "rB"}], ")"}], "2"]}], ")"}], "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{"rB", "-", 
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["rA", "2"], "-", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "d"}], "+", "rB"}], ")"}], "2"]}], 
+      RowBox[{"6", " ", "d"}]]}], ")"}]}], 
+  RowBox[{"4", " ", 
+   SuperscriptBox["d", "2"]}]]], "Output",
+ CellChangeTimes->{3.727602549188871*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"\[Pi]", " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "d"}], "+", "rA", "+", "rB"}], ")"}], "2"], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     SuperscriptBox["d", "2"], "-", 
+     RowBox[{"3", " ", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"rA", "-", "rB"}], ")"}], "2"]}], "+", 
+     RowBox[{"2", " ", "d", " ", 
+      RowBox[{"(", 
+       RowBox[{"rA", "+", "rB"}], ")"}]}]}], ")"}]}], 
+  RowBox[{"12", " ", "d"}]]], "Output",
+ CellChangeTimes->{3.727602549235754*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 903},
+WindowMargins->{{512, Automatic}, {6, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 1712, 50, 270, "Input"],
+Cell[2295, 74, 717, 25, 63, "Output"],
+Cell[3015, 101, 664, 23, 63, "Output"],
+Cell[3682, 126, 553, 18, 89, "Output"]
+}, Open  ]]
+}
+]
+*)
+

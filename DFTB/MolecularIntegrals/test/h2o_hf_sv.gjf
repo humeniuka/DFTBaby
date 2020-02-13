@@ -1,0 +1,17 @@
+%Chk=h2o_hf_sv.chk
+%Nproc=3
+%Mem=300MW
+#P HF/SV Integral(Grid=UltraFine,UncontractAOBasis,Acc2E=14)
+SCF=(NoVarAcc,NoIncFock)
+
+Water - uncontracted SV basis set
+
+0,1
+H     0.7627608    0.0000000   -0.2033613 
+O     0.0000000    0.0000000    0.4067226 
+H    -0.7627608    0.0000000   -0.2033613 
+
+
+
+
+

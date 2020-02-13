@@ -1,0 +1,134 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4478,        124]
+NotebookOptionsPosition[      4168,        108]
+NotebookOutlinePosition[      4506,        123]
+CellTagsIndexPosition[      4463,        120]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Erf", "[", 
+        RowBox[{"x", "/", "Rlr"}], "]"}], ",", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{"(", 
+             RowBox[{"x", "-", "x0"}], ")"}]}], "/", "T"}], "]"}], "+", 
+         "1"}]]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", 
+       RowBox[{"-", "3"}], ",", "10"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x0", ",", "0", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"T", ",", "0.5"}], "}"}], ",", "0.1", ",", "4"}], "}"}], ",", 
+   " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Rlr", ",", "3.0"}], "}"}], ",", "0.1", ",", "10.0"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.632226600403203*^9, 3.632226624717783*^9}, {
+  3.632226706742165*^9, 3.6322267969066477`*^9}, {3.632227000585984*^9, 
+  3.63222704379529*^9}, {3.632227719588408*^9, 3.632227738748889*^9}, {
+  3.6322302319505167`*^9, 3.632230262092154*^9}, {3.632231553977879*^9, 
+  3.6322315751772614`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`Rlr$$ = 3., $CellContext`T$$ = 
+    0.5, $CellContext`x0$$ = 6, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`x0$$], 0, 10}, {{
+       Hold[$CellContext`T$$], 0.5}, 0.1, 4}, {{
+       Hold[$CellContext`Rlr$$], 3.}, 0.1, 10.}}, Typeset`size$$ = {
+    360., {111., 114.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`x0$13165$$ = 
+    0, $CellContext`T$13166$$ = 0, $CellContext`Rlr$13167$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`Rlr$$ = 3., $CellContext`T$$ = 
+        0.5, $CellContext`x0$$ = 0}, "ControllerVariables" :> {
+        Hold[$CellContext`x0$$, $CellContext`x0$13165$$, 0], 
+        Hold[$CellContext`T$$, $CellContext`T$13166$$, 0], 
+        Hold[$CellContext`Rlr$$, $CellContext`Rlr$13167$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[{
+         Erf[$CellContext`x/$CellContext`Rlr$$], 1/(
+         Exp[(-($CellContext`x - $CellContext`x0$$))/$CellContext`T$$] + 
+         1)}, {$CellContext`x, -3, 10}], 
+      "Specifications" :> {{$CellContext`x0$$, 0, 
+         10}, {{$CellContext`T$$, 0.5}, 0.1, 4}, {{$CellContext`Rlr$$, 3.}, 
+         0.1, 10.}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {190., 197.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.6322267443006907`*^9, 3.632226797380411*^9}, {
+  3.632227001469499*^9, 3.632227044196972*^9}, {3.632227720538321*^9, 
+  3.632227739331709*^9}, {3.632230232891672*^9, 3.6322302624715137`*^9}, {
+  3.6322315599199467`*^9, 3.632231575984002*^9}}]
+}, Open  ]]
+},
+WindowSize->{740, 851},
+WindowMargins->{{-923, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 1220, 36, 84, "Input"],
+Cell[1802, 60, 2350, 45, 436, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

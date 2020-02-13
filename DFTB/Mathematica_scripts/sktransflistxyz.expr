@@ -1,0 +1,233 @@
+{{s, 0, 0, s, 0, 0, SorH[0, Sqrt[x^2 + y^2 + z^2]]}, 
+ {s, 0, 0, py, 1, -1, (y*SorH[2, Sqrt[x^2 + y^2 + z^2]])/
+   Sqrt[x^2 + y^2 + z^2]}, {s, 0, 0, pz, 1, 0, 
+  (z*SorH[2, Sqrt[x^2 + y^2 + z^2]])/Sqrt[x^2 + y^2 + z^2]}, 
+ {s, 0, 0, px, 1, 1, (x*SorH[2, Sqrt[x^2 + y^2 + z^2]])/
+   Sqrt[x^2 + y^2 + z^2]}, {s, 0, 0, dxy, 2, -2, 
+  (Sqrt[3]*x*y*SorH[3, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {s, 0, 0, dyz, 2, -1, (Sqrt[3]*y*z*SorH[3, Sqrt[x^2 + y^2 + z^2]])/
+   (x^2 + y^2 + z^2)}, {s, 0, 0, dz2, 2, 0, 
+  -((x^2 + y^2 - 2*z^2)*SorH[3, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2))}, {s, 0, 0, dzx, 2, 1, 
+  (Sqrt[3]*x*z*SorH[3, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {s, 0, 0, dx2y2, 2, 2, (Sqrt[3]*(x - y)*(x + y)*
+    SorH[3, Sqrt[x^2 + y^2 + z^2]])/(2*(x^2 + y^2 + z^2))}, 
+ {py, 1, -1, s, 0, 0, (y*SorH[4, Sqrt[x^2 + y^2 + z^2]])/
+   Sqrt[x^2 + y^2 + z^2]}, {py, 1, -1, py, 1, -1, 
+  ((x^2 + z^2)*SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+    y^2*SorH[6, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {py, 1, -1, pz, 1, 0, (y*z*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+     SorH[6, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)}, 
+ {py, 1, -1, px, 1, 1, (x*y*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+     SorH[6, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)}, 
+ {py, 1, -1, dxy, 2, -2, 
+  (x*((x^2 - y^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*y^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {py, 1, -1, dyz, 2, -1, 
+  (z*((x^2 - y^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*y^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {py, 1, -1, dz2, 2, 0, 
+  -(y*(2*Sqrt[3]*z^2*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {py, 1, -1, dzx, 2, 1, 
+  (x*y*z*(-2*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {py, 1, -1, dx2y2, 2, 2, 
+  (-2*y*(2*x^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+    Sqrt[3]*(x - y)*y*(x + y)*SorH[8, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {pz, 1, 0, s, 0, 0, 
+  (z*SorH[4, Sqrt[x^2 + y^2 + z^2]])/Sqrt[x^2 + y^2 + z^2]}, 
+ {pz, 1, 0, py, 1, -1, (y*z*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+     SorH[6, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)}, 
+ {pz, 1, 0, pz, 1, 0, ((x^2 + y^2)*SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+    z^2*SorH[6, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {pz, 1, 0, px, 1, 1, (x*z*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+     SorH[6, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)}, 
+ {pz, 1, 0, dxy, 2, -2, (x*y*z*(-2*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {pz, 1, 0, dyz, 2, -1, 
+  (y*((x^2 + y^2 - z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*z^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {pz, 1, 0, dz2, 2, 0, 
+  (z*(2*Sqrt[3]*(x^2 + y^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] - 
+     (x^2 + y^2 - 2*z^2)*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {pz, 1, 0, dzx, 2, 1, 
+  (x*((x^2 + y^2 - z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*z^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {pz, 1, 0, dx2y2, 2, 2, 
+  -((x - y)*(x + y)*z*(2*SorH[7, Sqrt[x^2 + y^2 + z^2]] - 
+      Sqrt[3]*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(2*(x^2 + y^2 + z^2)^(3/2))}, 
+ {px, 1, 1, s, 0, 0, (x*SorH[4, Sqrt[x^2 + y^2 + z^2]])/
+   Sqrt[x^2 + y^2 + z^2]}, {px, 1, 1, py, 1, -1, 
+  (x*y*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + SorH[6, Sqrt[x^2 + y^2 + z^2]]))/
+   (x^2 + y^2 + z^2)}, {px, 1, 1, pz, 1, 0, 
+  (x*z*(-SorH[5, Sqrt[x^2 + y^2 + z^2]] + SorH[6, Sqrt[x^2 + y^2 + z^2]]))/
+   (x^2 + y^2 + z^2)}, {px, 1, 1, px, 1, 1, 
+  ((y^2 + z^2)*SorH[5, Sqrt[x^2 + y^2 + z^2]] + 
+    x^2*SorH[6, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {px, 1, 1, dxy, 2, -2, 
+  (y*((-x^2 + y^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*x^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {px, 1, 1, dyz, 2, -1, (x*y*z*(-2*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {px, 1, 1, dz2, 2, 0, 
+  -(x*(2*Sqrt[3]*z^2*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {px, 1, 1, dzx, 2, 1, 
+  (z*((-x^2 + y^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*x^2*SorH[8, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {px, 1, 1, dx2y2, 2, 2, (2*x*(2*y^2 + z^2)*SorH[7, Sqrt[x^2 + y^2 + z^2]] + 
+    Sqrt[3]*x*(x - y)*(x + y)*SorH[8, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dxy, 2, -2, s, 0, 0, 
+  (Sqrt[3]*x*y*SorH[9, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {dxy, 2, -2, py, 1, -1, 
+  (x*((x^2 - y^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*y^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dxy, 2, -2, pz, 1, 0, (x*y*z*(-2*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dxy, 2, -2, px, 1, 1, 
+  (y*((-x^2 + y^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*x^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dxy, 2, -2, dxy, 2, -2, 
+  ((x^2 + z^2)*(y^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] + 
+    ((x^2 - y^2)^2 + (x^2 + y^2)*z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+    3*x^2*y^2*SorH[14, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)^2}, 
+ {dxy, 2, -2, dyz, 2, -1, 
+  (x*z*(-((x^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (x^2 - 3*y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*y^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dxy, 2, -2, dz2, 2, 0, 
+  (Sqrt[3]*x*y*((x^2 + y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*z^2*SorH[13, Sqrt[x^2 + y^2 + z^2]] - (x^2 + y^2 - 2*z^2)*
+      SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(2*(x^2 + y^2 + z^2)^2)}, 
+ {dxy, 2, -2, dzx, 2, 1, 
+  (y*z*(-((y^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (-3*x^2 + y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*x^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dxy, 2, -2, dx2y2, 2, 2, 
+  (x*(x - y)*y*(x + y)*(SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 3*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dyz, 2, -1, s, 0, 0, 
+  (Sqrt[3]*y*z*SorH[9, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)}, 
+ {dyz, 2, -1, py, 1, -1, 
+  (z*((x^2 - y^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*y^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dyz, 2, -1, pz, 1, 0, 
+  (y*((x^2 + y^2 - z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*z^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dyz, 2, -1, px, 1, 1, (x*y*z*(-2*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dyz, 2, -1, dxy, 2, -2, 
+  (x*z*(-((x^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (x^2 - 3*y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*y^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dyz, 2, -1, dyz, 2, -1, 
+  ((x^2 + y^2)*(x^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] + 
+    ((y^2 - z^2)^2 + x^2*(y^2 + z^2))*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+    3*y^2*z^2*SorH[14, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)^2}, 
+ {dyz, 2, -1, dz2, 2, 0, 
+  -(Sqrt[3]*y*z*((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+      2*(x^2 + y^2 - z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dyz, 2, -1, dzx, 2, 1, 
+  (x*y*(-((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (x^2 + y^2 - 3*z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*z^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dyz, 2, -1, dx2y2, 2, 2, 
+  (y*z*((3*x^2 + y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     2*(3*x^2 - y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*(x - y)*(x + y)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dz2, 2, 0, s, 0, 0, 
+  -((x^2 + y^2 - 2*z^2)*SorH[9, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2))}, {dz2, 2, 0, py, 1, -1, 
+  -(y*(2*Sqrt[3]*z^2*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dz2, 2, 0, pz, 1, 0, 
+  (z*(2*Sqrt[3]*(x^2 + y^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] - 
+     (x^2 + y^2 - 2*z^2)*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dz2, 2, 0, px, 1, 1, 
+  -(x*(2*Sqrt[3]*z^2*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dz2, 2, 0, dxy, 2, -2, 
+  (Sqrt[3]*x*y*((x^2 + y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*z^2*SorH[13, Sqrt[x^2 + y^2 + z^2]] - (x^2 + y^2 - 2*z^2)*
+      SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(2*(x^2 + y^2 + z^2)^2)}, 
+ {dz2, 2, 0, dyz, 2, -1, 
+  -(Sqrt[3]*y*z*((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+      2*(x^2 + y^2 - z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dz2, 2, 0, dz2, 2, 0, 
+  (3*(x^2 + y^2)*((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] + 
+      4*z^2*SorH[13, Sqrt[x^2 + y^2 + z^2]]) + (x^2 + y^2 - 2*z^2)^2*
+     SorH[14, Sqrt[x^2 + y^2 + z^2]])/(4*(x^2 + y^2 + z^2)^2)}, 
+ {dz2, 2, 0, dzx, 2, 1, 
+  -(Sqrt[3]*x*z*((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+      2*(x^2 + y^2 - z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dz2, 2, 0, dx2y2, 2, 2, 
+  (Sqrt[3]*(x - y)*(x + y)*((x^2 + y^2 + 2*z^2)*
+      SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*z^2*SorH[13, Sqrt[x^2 + y^2 + z^2]] - (x^2 + y^2 - 2*z^2)*
+      SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(4*(x^2 + y^2 + z^2)^2)}, 
+ {dzx, 2, 1, s, 0, 0, (Sqrt[3]*x*z*SorH[9, Sqrt[x^2 + y^2 + z^2]])/
+   (x^2 + y^2 + z^2)}, {dzx, 2, 1, py, 1, -1, 
+  (x*y*z*(-2*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dzx, 2, 1, pz, 1, 0, 
+  (x*((x^2 + y^2 - z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*z^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dzx, 2, 1, px, 1, 1, 
+  (z*((-x^2 + y^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+     Sqrt[3]*x^2*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^(3/2)}, 
+ {dzx, 2, 1, dxy, 2, -2, 
+  (y*z*(-((y^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (-3*x^2 + y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*x^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dzx, 2, 1, dyz, 2, -1, 
+  (x*y*(-((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     (x^2 + y^2 - 3*z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*z^2*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(x^2 + y^2 + z^2)^2}, 
+ {dzx, 2, 1, dz2, 2, 0, 
+  -(Sqrt[3]*x*z*((x^2 + y^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+      2*(x^2 + y^2 - z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+      (x^2 + y^2 - 2*z^2)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dzx, 2, 1, dzx, 2, 1, 
+  ((x^2 + y^2)*(y^2 + z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] + 
+    (x^4 + x^2*(y^2 - 2*z^2) + z^2*(y^2 + z^2))*
+     SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+    3*x^2*z^2*SorH[14, Sqrt[x^2 + y^2 + z^2]])/(x^2 + y^2 + z^2)^2}, 
+ {dzx, 2, 1, dx2y2, 2, 2, 
+  (x*z*(-((x^2 + 3*y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     2*(-x^2 + 3*y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*(x - y)*(x + y)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dx2y2, 2, 2, s, 0, 0, 
+  (Sqrt[3]*(x - y)*(x + y)*SorH[9, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2))}, {dx2y2, 2, 2, py, 1, -1, 
+  (-2*y*(2*x^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+    Sqrt[3]*(x - y)*y*(x + y)*SorH[11, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dx2y2, 2, 2, pz, 1, 0, 
+  -((x - y)*(x + y)*z*(2*SorH[10, Sqrt[x^2 + y^2 + z^2]] - 
+      Sqrt[3]*SorH[11, Sqrt[x^2 + y^2 + z^2]]))/(2*(x^2 + y^2 + z^2)^(3/2))}, 
+ {dx2y2, 2, 2, px, 1, 1, (2*x*(2*y^2 + z^2)*SorH[10, Sqrt[x^2 + y^2 + z^2]] + 
+    Sqrt[3]*x*(x - y)*(x + y)*SorH[11, Sqrt[x^2 + y^2 + z^2]])/
+   (2*(x^2 + y^2 + z^2)^(3/2))}, {dx2y2, 2, 2, dxy, 2, -2, 
+  (x*(x - y)*y*(x + y)*(SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 3*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dx2y2, 2, 2, dyz, 2, -1, 
+  (y*z*((3*x^2 + y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     2*(3*x^2 - y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*(x - y)*(x + y)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dx2y2, 2, 2, dz2, 2, 0, 
+  (Sqrt[3]*(x - y)*(x + y)*((x^2 + y^2 + 2*z^2)*
+      SorH[12, Sqrt[x^2 + y^2 + z^2]] - 
+     4*z^2*SorH[13, Sqrt[x^2 + y^2 + z^2]] - (x^2 + y^2 - 2*z^2)*
+      SorH[14, Sqrt[x^2 + y^2 + z^2]]))/(4*(x^2 + y^2 + z^2)^2)}, 
+ {dx2y2, 2, 2, dzx, 2, 1, 
+  (x*z*(-((x^2 + 3*y^2 + 2*z^2)*SorH[12, Sqrt[x^2 + y^2 + z^2]]) + 
+     2*(-x^2 + 3*y^2 + z^2)*SorH[13, Sqrt[x^2 + y^2 + z^2]] + 
+     3*(x - y)*(x + y)*SorH[14, Sqrt[x^2 + y^2 + z^2]]))/
+   (2*(x^2 + y^2 + z^2)^2)}, {dx2y2, 2, 2, dx2y2, 2, 2, 
+  (((x^2 - y^2)^2 + 4*(x^2 + y^2)*z^2 + 4*z^4)*
+     SorH[12, Sqrt[x^2 + y^2 + z^2]] + 4*(4*x^2*y^2 + (x^2 + y^2)*z^2)*
+     SorH[13, Sqrt[x^2 + y^2 + z^2]] + 3*(x^2 - y^2)^2*
+     SorH[14, Sqrt[x^2 + y^2 + z^2]])/(4*(x^2 + y^2 + z^2)^2)}}

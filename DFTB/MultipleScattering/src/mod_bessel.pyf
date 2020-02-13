@@ -1,0 +1,18 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module mod_bessel ! in 
+    interface  ! in :mod_bessel
+        subroutine mod_bessel(x,nmax,ib,kb,ibp,kbp) ! in :mod_bessel:mod_bessel.f90
+            double precision intent(in) :: x
+            integer intent(in) :: nmax
+            double precision dimension(nmax + 1),intent(out),depend(nmax) :: ib
+            double precision dimension(nmax + 1),intent(out),depend(nmax) :: kb
+            double precision dimension(nmax + 1),intent(out),depend(nmax) :: ibp
+            double precision dimension(nmax + 1),intent(out),depend(nmax) :: kbp
+        end subroutine mod_bessel
+    end interface 
+end python module mod_bessel
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/

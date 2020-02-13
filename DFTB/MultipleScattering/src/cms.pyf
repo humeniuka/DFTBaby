@@ -1,0 +1,130 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module cms ! in 
+    interface  ! in :cms
+        subroutine jn_coeffs(l1,m1,l2,m2,vec,jcoeff,ncoeff) ! in :cms:cms.f90
+            integer intent(in) :: l1
+            integer intent(in) :: m1
+            integer intent(in) :: l2
+            integer intent(in) :: m2
+            double precision dimension(3),intent(in) :: vec
+            complex*16 intent(out) :: jcoeff
+            complex*16 intent(out) :: ncoeff
+        end subroutine jn_coeffs
+        subroutine muffin_tin_potential(vconst,chargeiii,nat,rhoiii,radii,atpos,nspl,kspl,knots,coeffs,npts,x_arr,y_arr,z_arr,v_arr) ! in :cms:cms.f90
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(knots,0)==nspl),depend(knots) :: nspl=shape(knots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspl,nat),intent(in),depend(nat) :: knots
+            double precision dimension(nspl,nat),intent(in),depend(nspl,nat) :: coeffs
+            integer, optional,intent(in),check(len(x_arr)>=npts),depend(x_arr) :: npts=len(x_arr)
+            double precision dimension(npts),intent(in) :: x_arr
+            double precision dimension(npts),intent(in),depend(npts) :: y_arr
+            double precision dimension(npts),intent(in),depend(npts) :: z_arr
+            double precision dimension(npts),intent(out),depend(npts) :: v_arr
+        end subroutine muffin_tin_potential
+        subroutine matching_matrix(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspl,kspl,fiknots,ficoeffs,debug,matchm,rhs) ! in :cms:cms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspl),depend(fiknots) :: nspl=shape(fiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nspl,lmax,nat) :: ficoeffs
+            integer, optional,intent(in) :: debug=0
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),(lmax+1)*(lmax+1)*(nat+1)),intent(out),depend(nat,lmax,nat,lmax) :: matchm
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),(lmax+1)*(lmax+1)),intent(out),depend(nat,lmax,lmax) :: rhs
+        end subroutine matching_matrix
+        subroutine wavefunctions(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspl,kspl,fiknots,ficoeffs,nc,sol,lm0,npts,x_arr,y_arr,z_arr,debug,kmat,wfn_arr) ! in :cms:cms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspl),depend(fiknots) :: nspl=shape(fiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nspl,lmax,nat) :: ficoeffs
+            integer, optional,intent(in),check(shape(sol,1)==nc),depend(sol) :: nc=shape(sol,1)
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),nc),intent(in),depend(nat,lmax) :: sol
+            integer intent(in) :: lm0
+            integer, optional,intent(in),check(len(x_arr)>=npts),depend(x_arr) :: npts=len(x_arr)
+            double precision dimension(npts),intent(in) :: x_arr
+            double precision dimension(npts),intent(in),depend(npts) :: y_arr
+            double precision dimension(npts),intent(in),depend(npts) :: z_arr
+            integer, optional,intent(in) :: debug=0
+            complex*16 dimension((lmax+1)*(lmax+1),nc),intent(out),depend(lmax,nc) :: kmat
+            complex*16 dimension(nc,npts),intent(out),depend(nc,npts) :: wfn_arr
+        end subroutine wavefunctions
+        subroutine transition_dipoles(energy,vconst,chargeiii,nat,lmax,rhoiii,radii,atpos,nspl,kspl,fiknots,ficoeffs,nc,sol,lm0,npts,x_arr,y_arr,z_arr,w_arr,norb,orbs_arr,kmat,tdip_arr,norms2,projs2) ! in :cms:cms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: vconst
+            double precision intent(in) :: chargeiii
+            integer, optional,intent(in),check(len(radii)>=nat),depend(radii) :: nat=len(radii)
+            integer, optional,intent(in),check((shape(fiknots,1)-1)==lmax),depend(fiknots) :: lmax=(shape(fiknots,1)-1)
+            double precision intent(in) :: rhoiii
+            double precision dimension(nat),intent(in) :: radii
+            double precision dimension(3,nat),intent(in),depend(nat) :: atpos
+            integer, optional,intent(in),check(shape(fiknots,0)==nspl),depend(fiknots) :: nspl=shape(fiknots,0)
+            integer intent(in) :: kspl
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nat) :: fiknots
+            double precision dimension(nspl,lmax + 1,nat),intent(in),depend(nspl,lmax,nat) :: ficoeffs
+            integer, optional,intent(in),check(shape(sol,1)==nc),depend(sol) :: nc=shape(sol,1)
+            complex*16 dimension((lmax+1)*(lmax+1)*(nat+1),nc),intent(in),depend(nat,lmax) :: sol
+            integer intent(in) :: lm0
+            integer, optional,intent(in),check(len(x_arr)>=npts),depend(x_arr) :: npts=len(x_arr)
+            double precision dimension(npts),intent(in) :: x_arr
+            double precision dimension(npts),intent(in),depend(npts) :: y_arr
+            double precision dimension(npts),intent(in),depend(npts) :: z_arr
+            double precision dimension(npts),intent(in),depend(npts) :: w_arr
+            integer, optional,intent(in),check(shape(orbs_arr,0)==norb),depend(orbs_arr) :: norb=shape(orbs_arr,0)
+            complex*16 dimension(norb,npts),intent(in),depend(npts) :: orbs_arr
+            complex*16 dimension((lmax+1)*(lmax+1),nc),intent(out),depend(lmax,nc) :: kmat
+            complex*16 dimension(nc,norb,3),intent(out),depend(nc,norb) :: tdip_arr
+            double precision dimension(norb),intent(out),depend(norb) :: norms2
+            double precision dimension(norb),intent(out),depend(norb) :: projs2
+        end subroutine transition_dipoles
+        subroutine transform_waves_in(energy,chargeiii,kmat,wfn,lmax,npts,wfn_in) ! in :cms:cms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: chargeiii
+            complex*16 dimension((lmax+1)*(lmax+1),(lmax+1)*(lmax+1)),intent(in),depend(lmax,lmax) :: kmat
+            complex*16 dimension((lmax+1)*(lmax+1),npts),intent(in),depend(lmax) :: wfn
+            integer intent(in) :: lmax
+            integer, optional,intent(in),check(shape(wfn,1)==npts),depend(wfn) :: npts=shape(wfn,1)
+            complex*16 dimension((lmax+1)*(lmax+1),npts),intent(out),depend(lmax,npts) :: wfn_in
+        end subroutine transform_waves_in
+        subroutine transform_tdip_in(energy,chargeiii,kmat,tdip,lmax,norb,tdip_in) ! in :cms:cms.f90
+            double precision intent(in) :: energy
+            double precision intent(in) :: chargeiii
+            complex*16 dimension((lmax+1)*(lmax+1),(lmax+1)*(lmax+1)),intent(in),depend(lmax,lmax) :: kmat
+            complex*16 dimension((lmax+1)*(lmax+1),norb,3),intent(in),depend(lmax) :: tdip
+            integer intent(in) :: lmax
+            integer, optional,intent(in),check(shape(tdip,1)==norb),depend(tdip) :: norb=shape(tdip,1)
+            complex*16 dimension((lmax+1)*(lmax+1),norb,3),intent(out),depend(lmax,norb) :: tdip_in
+        end subroutine transform_tdip_in
+        subroutine cgama(x,y,kf,gr,gi) ! in :cms:cms.f90
+            real(kind=8) :: x
+            real(kind=8) :: y
+            integer(kind=4) :: kf
+            real(kind=8) intent(out) :: gr
+            real(kind=8) intent(out) :: gi
+        end subroutine cgama
+    end interface 
+end python module cms
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
